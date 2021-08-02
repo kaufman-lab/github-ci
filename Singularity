@@ -7,7 +7,7 @@ Stage: build
 ############################################
 
 ##### install packages #########
-install.packages(c("data.table","labelled","terra","batchtools", "here", "intervalaverage", "renv"))
+Rscript -e install.packages(c("data.table","labelled","terra","batchtools", "here", "intervalaverage", "renv"))
 Rscript -e "devtools::install_github('kaufman-lab/survivaltools',ref='a9c75521fa58961e59d3c884681862f44c7683d6')"
 
 
