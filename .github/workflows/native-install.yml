@@ -78,6 +78,7 @@ jobs:
         SREGISTRY_DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
       run: |
         sudo -H pip3 install setuptools
+        sudo -H pip3 install wheel
         sudo -H pip3 install sregistry
         SREGISTRY_CLIENT=docker sregistry push --name ${SREGISTRY_DOCKERHUB_USERNAME}/geospatial_plus:4.1.0 container.sif
 
