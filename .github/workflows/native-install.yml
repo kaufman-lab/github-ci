@@ -1,7 +1,7 @@
 name: Singularity Build (native)
 on:
-  workflow_dispatch
-  push
+  workflow_dispatch:
+  push:
 jobs:
 
   build:
