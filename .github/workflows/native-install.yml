@@ -76,5 +76,5 @@ jobs:
         SREGISTRY_DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
       run: |
         sudo pip3 install sregistry
-      SREGISTRY_CLIENT=google-storage sregistry push --name myoung3/geospatial_plus:4.1.0 container.sif
+        SREGISTRY_CLIENT=docker sregistry push --name myoung3/geospatial_plus:4.1.0 container.sif
 
