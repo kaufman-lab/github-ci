@@ -56,3 +56,25 @@ jobs:
            echo "Present working directory: $PWD"
            ls
        fi
+
+
+    - name: Install Dependencies
+      run: |
+       sudo apt-get update && sudo apt-get install -y \
+       build-essential \
+       libssl-dev \
+       uuid-dev \
+       libgpgme11-dev \
+       squashfs-tools \
+       libseccomp-dev \
+       pkg-config \
+       python-dev python python3-pip
+
+    - name: Deploy Container
+      env: 
+        SREGISTRY_DOCKERHUB_USERNAME: myoung3
+        SREGISTRY_DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+      run: |
+        sudo pip3 install sregistry
+      SREGISTRY_CLIENT=google-storage sregistry push --name myoung3/geospatial_plus:4.1.0 container.sif
+
