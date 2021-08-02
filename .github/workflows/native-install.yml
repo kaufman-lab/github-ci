@@ -1,5 +1,7 @@
 name: Singularity Build (native)
-on: [push]
+on:
+  workflow_dispatch
+  push
 jobs:
 
   build:
@@ -75,6 +77,6 @@ jobs:
         SREGISTRY_DOCKERHUB_USERNAME: myoung3
         SREGISTRY_DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
       run: |
-        sudo pip3 install sregistry
-        SREGISTRY_CLIENT=docker sregistry push --name myoung3/geospatial_plus:4.1.0 container.sif
+        sudo -H pip3 install sregistry
+        SREGISTRY_CLIENT=docker sregistry push --name ${SREGISTRY_DOCKERHUB_USERNAME}/geospatial_plus:4.1.0 container.sif
 
