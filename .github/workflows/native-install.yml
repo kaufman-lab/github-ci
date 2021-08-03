@@ -7,6 +7,10 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-18.04
+    env:
+      username: myoung3
+      repository: geospatial_plus  
+      tag: 4.1.0
     steps:
 
     - name: Set up Go 1.16
@@ -59,26 +63,13 @@ jobs:
            ls
        fi
 
+    - name: Log in to Docker
+        uses: docker/login-action@v1
+        with:
+          username: ${{ env.username }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD}}
 
-    - name: Install Dependencies
-      run: |
-       sudo apt-get update && sudo apt-get install -y \
-       build-essential \
-       libssl-dev \
-       uuid-dev \
-       libgpgme11-dev \
-       squashfs-tools \
-       libseccomp-dev \
-       pkg-config \
-       python-dev python python3-pip
+    - name: Deploy
+        run: docker push ${{ env.username }}/${{ env.repository }}:${{ env.tag}} 
 
-    - name: Deploy Container
-      env: 
-        SREGISTRY_DOCKERHUB_USERNAME: myoung3
-        SREGISTRY_DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
-      run: |
-        sudo -H pip3 install setuptools
-        sudo -H pip3 install wheel
-        sudo -H pip3 install sregistry
-        SREGISTRY_CLIENT=docker sregistry push --name ${SREGISTRY_DOCKERHUB_USERNAME}/geospatial_plus:4.1.0 container.sif
 
